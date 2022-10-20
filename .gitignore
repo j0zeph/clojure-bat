@@ -30,3 +30,7 @@ intro.md
 core_test.clj
 .clj-kondo/*
 .lsp/*
+
+repl-port
+pom.*
+leiningen.*
