@@ -388,3 +388,30 @@
 (announce-treasure-location {:lat 28.2 :lng 81.33})
 
 
+
+;;Destructure maps, simpler version ----------------------
+
+(defn announce-treasure-location-simpler
+  "Shows the latitude and longitude of the treasure"
+  [{:keys [lat lng]}]
+  (println (str "Treasure is at latitude: " lat))
+  (println (str "Treasure is at longitude: " lng))
+)
+
+;; note: you have to use the same names as the actual keys in the map
+
+(announce-treasure-location-simpler {:lat 30 :lng 40})
+
+
+
+;;Destructure maps, while retaining the original map ----------------------
+
+(defn receive-treasure-location
+  [{:keys [lat lng] :as treasure-location}]
+  (println (str "Treasure is at latitude: " lat))
+  (println (str "Treasure is at longitude: " lng))
+
+  (println (str "Received locations: " treasure-location))
+)
+
+(receive-treasure-location {:lat 57.981224 :lng 7.045005})
