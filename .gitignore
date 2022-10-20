@@ -28,3 +28,5 @@ CHANGELOG.md
 output.*
 intro.md
 core_test.clj
+.clj-kondo/*
+.lsp/*
