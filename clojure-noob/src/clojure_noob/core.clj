@@ -352,7 +352,7 @@
 
 
 
-;;DESTRUCTING ----------------------
+;;DESTRUCTURING ----------------------
 
 
 ;;Return the first element of a collection ----------------------
