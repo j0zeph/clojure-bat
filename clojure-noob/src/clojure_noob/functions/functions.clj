@@ -143,3 +143,34 @@
 (name-and-location "Megan")
 
 (name-and-location)
+
+
+
+
+
+;;---------- FUNCTION BODY ----------
+;;
+;; When a function has many forms, clojure will return the last form that was evaluated.
+;; i.e. The `return` statement in clojure is implicit
+
+(defn return-last-evaluated
+  []
+  #{1 2 3}
+  (inc (get #{1 2 3} 1)))
+
+(return-last-evaluated)
+
+
+
+;; An example function that uses an if expression
+
+(defn weather-comment
+  "Takes a temperature (in celcius) and says whether it is above or below 25C"
+  [temp]
+  (if (< temp 25)
+    "That's below 25C"
+    (if (= temp 25)
+      "That's 25C"
+      "That's above 25C")))
+
+(weather-comment 25)
