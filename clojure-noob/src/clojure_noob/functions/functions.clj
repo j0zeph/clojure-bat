@@ -174,3 +174,71 @@
       "That's above 25C")))
 
 (weather-comment 25)
+
+
+
+
+
+;;---------- ANONYMOUS FUNCTIONS ----------
+;;
+;; Functions with no names
+;;
+;; the general form is:
+;;
+;; (fn [param-list]
+;;   function body)
+
+
+
+;; An example of an anonymous function
+
+(map (fn [item-adjective]
+       (str "Bring along something " item-adjective))
+     ["old" "new" "borrowed" "blue"])
+
+
+;; You can still associate an anonymous function with a name
+
+(def character-counter (fn [word] (count word)))
+(character-counter "banana")
+
+
+
+;; There is a more compact way to create anonymous functions
+;; using the `#` and `%` symbols
+
+;; example: Anonymous function that adds 10 to a number
+;; (#(+ % 10))
+
+;; Applying that function to the number 35
+
+(#(+ % 10) 35)
+
+
+;; Re-writing the something old, new, borrowed, blue function to use the
+;; compact syntax
+
+(map #(str "Bring along something " %)
+     ["old" "new" "borrowed" "blue"])
+
+
+
+;; If the anonymous function take more than one argument, you can use many
+;; `%` signs with a number --that represents the position of the argument--
+;; to the right of it
+
+(#(str "Bring along something " %1 ", " %2 ", " %3 ", and " %4)
+ "old" "new" "borrowed" "blue")
+
+
+;; Yes, shuffling the numbers around will shuffle the arguments as well
+
+(#(str "Bring along something " %2 ", " %3 ", " %1 ", and " %4)
+ "old" "new" "borrowed" "blue")
+
+
+;; You can also use the rest parameter by using `%&`
+;; `identity` returns the arguments it was given as a list
+
+(#(identity %&) "old" "new" "borrowed" "blue")
+
