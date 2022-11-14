@@ -242,3 +242,28 @@
 
 (#(identity %&) "old" "new" "borrowed" "blue")
 
+
+
+
+
+;;---------- RETURNING FUNCTIONS ----------
+;;
+;; Functions can return other functions.
+;; The returned functions still have access to all the variables that were in scope when the 
+;; funcition was created.
+
+
+
+(defn inc-maker
+  "Create a custom incrementor"
+  [increase-by]
+  #(+ % increase-by)) ;; inc-maker here returns an anonymous function
+
+
+;; when 3 is passed to inc-maker, the anonymous function that is returned is now outside of inc-maker
+;; but the `increase-by` binding (the 3 that was passed earlier) is still accesible by the anonymous
+;; function that was returned.
+
+(def inc-by-3 (inc-maker 3))
+
+(inc-by-3 7)
