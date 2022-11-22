@@ -267,3 +267,106 @@
 (def inc-by-3 (inc-maker 3))
 
 (inc-by-3 7)
+
+
+
+
+
+;;---------- PUTTING IT ALL TOGETHER ----------
+;;
+;; Modelling a hobbit.
+
+
+;; A vector of maps listing various hobbit body-parts and their relative sizes
+;; The body parts also lack their right-side counterparts
+
+(def asymmetric-body-parts
+  [{:name "head" :size 3}
+   {:name "left-eye" :size 1}
+   {:name "left-ear" :size 1}
+   {:name "mouth" :size 1}
+   {:name "mose" :size 1}
+   {:name "neck" :size 2}
+   {:name "left-shoulder" :size 3}
+   {:name "left-upper-arm" :size 3}
+   {:name "chest" :size 10}
+   {:name "back" :size 10}
+   {:name "left-forearm" :size 3}
+   {:name "abdomen" :size 6}
+   {:name "left-kidney" :size 1}
+   {:name "left-hand" :size 2}
+   {:name "left-knee" :size 2}
+   {:name "left-thigh" :size 4}
+   {:name "left-lower-leg" :size 3}
+   {:name "left-achilles" :size 1}
+   {:name "left-foot" :size 2}])
+
+
+;; function to ...
+(defn match-body-part
+  [left-body-part]
+  {:name (clojure.string/replace (:name left-body-part) #"^left-" "right-")
+   :size (:size left-body-part)})
+
+
+(defn make-parts-symmetric
+  "Expects a sequence of maps, each with :name and :size keys"
+  [asym-body-parts]
+
+  (loop [remaining-asym-parts asym-body-parts final-body-parts []]
+    (if (empty? remaining-asym-parts)
+      final-body-parts
+      (let [[part & remaining] remaining-asym-parts]
+        (recur remaining
+               (into final-body-parts
+                     (set [part (match-body-part part)])))))))
+
+
+(make-parts-symmetric asymmetric-body-parts)
+
+
+
+
+
+;;---------- EXAMPLE BREAKDOWN: `let` keyword ----------
+;;
+;; `let` binds names to values
+
+
+;; binding `3` to the name `x`
+
+(let [x 3] 
+  x)
+
+(def spy-list
+  ["Napoleon Solo" "Ethan Hunt" "Evelyn Salt" "Jason Bourne"])
+
+
+;; binding the last two people from `spy-list` to the name `two-spies`,
+;; and then returning `two-spies`
+
+(let [two-spies (take-last 2 spy-list)] 
+     two-spies)
+
+
+;; `let` also creates a new scope/context for names
+
+(def m 100)
+
+
+;; The new `m` refers to the result of multiplying 300 by the old `m` from before 
+;; This new `m` is only active/alive withing the context of the `let` form.
+;; Outside this `let`, m is still 100
+
+(let [m (* 300 m)] 
+  m)
+
+
+;; You can use the rest parameter in `let` forms as well
+;;
+;; Here, `first-spy` and `other-spies` are bound to the first person in `spy-list`
+;; and everyone else in `spy-list` respectively
+;; The result is then returned as a vector
+
+(let [[first-spy & other-spies] spy-list]
+  [first-spy other-spies])
