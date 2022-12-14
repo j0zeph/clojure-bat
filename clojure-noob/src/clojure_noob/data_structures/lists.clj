@@ -18,7 +18,7 @@
 ;;This is because `nth` has to visit every element in a list
 
 
-;;lists can contain different types of values (t is heterogenous)
+;;lists can contain different types of values (it is heterogenous)
 (list 1 "two" {3 4})
 
 
